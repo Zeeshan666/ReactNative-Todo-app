@@ -1,32 +1,28 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState('zeeshan');
-  const [person, setPerson] = useState({
-    name: 'ali',
-    age: 45,
-  });
+  const [people, setPeople] = useState([
+    {name: 'shaun', id: '1'},
+    {name: 'yoshi', id: '2'},
+    {name: 'mario', id: '3'},
+    {name: 'luigi', id: '4'},
+    {name: 'peach', id: '5'},
+    {name: 'toad', id: '6'},
+    {name: 'bowser', id: '7'},
+  ]);
 
   return (
     <View style={styles.container}>
-      <Text>Name : {person.name}</Text>
-      <TextInput
-        multiline
-        style={styles.InputContainer}
-        placeholder="name"
-        onChangeText={val => setPerson({name: val})}
-      />
-      <Text>Age:{person.age}</Text>
-      <TextInput
-        keyboardType="name-phone-pad"
-        style={styles.InputContainer}
-        placeholder="Age"
-        onChangeText={val => setPerson({age: val})}
-      />
-      <Text>
-        hello i'm {person.name} and my age is {person.age}
-      </Text>
+      <ScrollView pagingEnabled={true} horizontal={true}>
+        {people.map(item => {
+          return (
+            <View key={item.key}>
+              <Text style={styles.items}>{item.name}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 }
@@ -35,17 +31,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 20,
   },
-  buttonContainer: {
-    paddingTop: 20,
-  },
-  InputContainer: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
+  items: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 40,
   },
 });
